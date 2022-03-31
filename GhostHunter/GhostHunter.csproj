@@ -17,7 +17,6 @@
     <None Remove="Elements\tree1.png" />
     <None Remove="Elements\tree2.png" />
     <None Remove="Elements\trees.png" />
-    <None Remove="Maps\starter_background.png" />
     <None Remove="Maps\starter_map.png" />
   </ItemGroup>
 
@@ -50,9 +49,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Elements\trees.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Maps\starter_background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Maps\starter_map.png">
