@@ -6,4 +6,54 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Elements\flower.png" />
+    <None Remove="Elements\grass.png" />
+    <None Remove="Elements\grass_mushroom.png" />
+    <None Remove="Elements\grass_mushroom_tree.png" />
+    <None Remove="Elements\grass_rocks.png" />
+    <None Remove="Elements\rocks_mushrooms.png" />
+    <None Remove="Elements\signboard.png" />
+    <None Remove="Elements\tree1.png" />
+    <None Remove="Elements\tree2.png" />
+    <None Remove="Elements\trees.png" />
+    <None Remove="Maps\starter_map.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Elements\flower.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\grass.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\grass_mushroom.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\grass_mushroom_tree.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\grass_rocks.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\rocks_mushrooms.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\signboard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\tree1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\tree2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\trees.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\starter_map.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
