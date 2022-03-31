@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D252FC0-2149-4AC9-889A-16DA0350FA2D}"
 	ProjectSection(SolutionItems) = preProject
 		spec.pdf = spec.pdf
+		Maps\starter_background.png = Maps\starter_background.png
 	EndProjectSection
 EndProject
 Global
