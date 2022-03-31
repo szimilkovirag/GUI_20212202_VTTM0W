@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GhostHunter"
+        xmlns:renderer="clr-namespace:GhostHunter.Renderer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1000">
-    <Grid>
-
+        Title="Starter" Height="650" Width="1000" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged">
+    <Grid x:Name="grid">
+        <renderer:Display x:Name="display"/>
     </Grid>
 </Window>
