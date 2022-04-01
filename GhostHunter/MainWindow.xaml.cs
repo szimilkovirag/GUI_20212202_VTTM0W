@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GhostHunter.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,20 @@ namespace GhostHunter
         public MainWindow()
         {
             InitializeComponent();
+            GhostHunterLogic logic = new GhostHunterLogic();
+            display.SetUpModel(logic);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            display.SetupSizes(new Size(grid.ActualWidth,grid.ActualHeight));
+            display.InvalidateVisual();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            display.SetupSizes(new Size(grid.ActualWidth, grid.ActualHeight));
+            display.InvalidateVisual();
         }
     }
 }
