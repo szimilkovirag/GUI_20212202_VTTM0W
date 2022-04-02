@@ -7,22 +7,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Elements\cat.png" />
+    <None Remove="Elements\desert.png" />
     <None Remove="Elements\flower.png" />
     <None Remove="Elements\grass.png" />
     <None Remove="Elements\grass_mushroom.png" />
     <None Remove="Elements\grass_mushroom_tree.png" />
     <None Remove="Elements\grass_rocks.png" />
     <None Remove="Elements\rocks_mushrooms.png" />
-    <None Remove="Elements\signboard.png" />
     <None Remove="Elements\tree1.png" />
     <None Remove="Elements\tree2.png" />
     <None Remove="Elements\trees.png" />
+    <None Remove="Elements\winter.png" />
+    <None Remove="Elements\woods.png" />
     <None Remove="Maps\L00.txt" />
     <None Remove="Maps\starter_background.png" />
     <None Remove="Maps\starter_map.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Elements\desert.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Elements\flower.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -41,9 +47,6 @@
     <Content Include="Elements\rocks_mushrooms.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Elements\signboard.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Elements\tree1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -53,6 +56,12 @@
     <Content Include="Elements\trees.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Elements\winter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\woods.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Maps\L00.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -60,6 +69,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Maps\starter_map.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Elements\cat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
