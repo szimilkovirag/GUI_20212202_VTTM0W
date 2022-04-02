@@ -11,16 +11,23 @@ namespace GhostHunter.Logic
     {
         public enum MapItem
         {
-            flower, grass, player, tree2, trees, signboard, ground
+            flower, rocks, mushroom, grass, player, tree1, tree2, trees, ground, woods, winter, desert, starter
+        }
+
+        public enum Direction
+        {
+            Up, Down, Left, Right
         }
 
         public MapItem[,] GameMatrix { get; set; }
+        private int player_i;
+        private int player_j;
         private string[] levels;
 
         public GhostHunterLogic()
         {
             levels = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(),"Maps"),"*.txt");
-            LoadNext(levels.First());
+            LoadNext(levels[0]);
         }
 
         private void LoadNext(string path)
@@ -47,9 +54,73 @@ namespace GhostHunter.Logic
                 case 'F':
                     return MapItem.flower;
                 case 'B':
-                    return MapItem.signboard;
+                    return MapItem.woods;
+                case 'W':
+                    return MapItem.winter;
+                case 'D':
+                    return MapItem.desert;
+                case 'S':
+                    return MapItem.starter;
+                case 'G':
+                    return MapItem.grass;
+                case 'R':
+                    return MapItem.rocks;
+                case 'M':
+                    return MapItem.mushroom;
+                case 'E':
+                    return MapItem.tree1;
+                case 'P':
+                    return MapItem.player;
                 default:
                     return MapItem.ground;
+            }
+        }
+
+        public void Move(Direction direction)
+        {
+            int new_i = player_i;
+            int new_j = player_j;
+            switch (direction)
+            {
+                case Direction.Up:
+                    if (new_i - 1 >= 0) new_i--;
+                    break;
+                case Direction.Down:
+                    if (new_i + 1 < GameMatrix.GetLength(0))
+                        new_i++;
+                    break;
+                case Direction.Left:
+                    if (new_j - 1 >= 0) new_j--;
+                    break;
+                case Direction.Right:
+                    if (new_j + 1 < GameMatrix.GetLength(1))
+                        new_j++;
+                    break;
+                default:
+                    break;
+            }
+            if (GameMatrix[new_i, new_j] == MapItem.ground)
+            {
+                GameMatrix[player_i, player_j] = MapItem.ground;
+                player_i = new_i;
+                player_j = new_j;
+                GameMatrix[player_i, player_j] = MapItem.player;
+            }
+            else if (GameMatrix[new_i, new_j] == MapItem.woods)
+            {
+                LoadNext(levels[1]);
+            }
+            else if (GameMatrix[new_i, new_j] == MapItem.winter)
+            {
+                LoadNext(levels[2]);
+            }
+            else if (GameMatrix[new_i, new_j] == MapItem.desert)
+            {
+                LoadNext(levels[3]);
+            }
+            else if (GameMatrix[new_i, new_j] == MapItem.starter)
+            {
+                LoadNext(levels[0]);
             }
         }
     }
