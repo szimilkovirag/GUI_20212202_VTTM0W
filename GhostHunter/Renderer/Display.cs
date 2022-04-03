@@ -14,12 +14,11 @@ namespace GhostHunter.Renderer
     internal class Display:FrameworkElement
     {
         IGameModel model;
+        Size area;
         public void SetUpModel(IGameModel model)
         {
             this.model = model;
         }
-
-        Size area;
         public void SetupSizes(Size area)
         {
             this.area = area;
@@ -36,7 +35,7 @@ namespace GhostHunter.Renderer
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-            //base.OnRender(drawingContext);
+            base.OnRender(drawingContext);
             if(model!=null && area.Width > 0 && area.Height > 0)
             {
                 drawingContext.DrawRectangle(StarterBrush, null, new Rect(0, 0, area.Width, area.Height));

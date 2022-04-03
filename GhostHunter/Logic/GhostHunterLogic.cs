@@ -11,7 +11,7 @@ namespace GhostHunter.Logic
     {
         public enum MapItem
         {
-            flower, rocks, mushroom, grass, player, tree1, tree2, trees, ground, woods, winter, desert, starter
+            flower, rocks, mushroom, grass, player, tree1, tree2, trees, ground, woods, winter, desert, starter, 
         }
 
         public enum Direction
@@ -39,43 +39,14 @@ namespace GhostHunter.Logic
                 for (int j = 0; j < GameMatrix.GetLength(1); j++)
                 {
                     GameMatrix[i, j] = ConvertToEnum(lines[i + 2][j]);
+                    if (GameMatrix[i, j] == MapItem.player)
+                    {
+                        player_i = i;
+                        player_j = j;
+                    }
                 }
             }
         }
-
-        private MapItem ConvertToEnum(char v)
-        {
-            switch (v)
-            {
-                case 't':
-                    return MapItem.tree2;
-                case 'T':
-                    return MapItem.trees;
-                case 'F':
-                    return MapItem.flower;
-                case 'B':
-                    return MapItem.woods;
-                case 'W':
-                    return MapItem.winter;
-                case 'D':
-                    return MapItem.desert;
-                case 'S':
-                    return MapItem.starter;
-                case 'G':
-                    return MapItem.grass;
-                case 'R':
-                    return MapItem.rocks;
-                case 'M':
-                    return MapItem.mushroom;
-                case 'E':
-                    return MapItem.tree1;
-                case 'P':
-                    return MapItem.player;
-                default:
-                    return MapItem.ground;
-            }
-        }
-
         public void Move(Direction direction)
         {
             int new_i = player_i;
@@ -121,6 +92,38 @@ namespace GhostHunter.Logic
             else if (GameMatrix[new_i, new_j] == MapItem.starter)
             {
                 LoadNext(levels[0]);
+            }
+        }
+        private MapItem ConvertToEnum(char v)
+        {
+            switch (v)
+            {
+                case 't':
+                    return MapItem.tree2;
+                case 'T':
+                    return MapItem.trees;
+                case 'F':
+                    return MapItem.flower;
+                case 'B':
+                    return MapItem.woods;
+                case 'W':
+                    return MapItem.winter;
+                case 'D':
+                    return MapItem.desert;
+                case 'S':
+                    return MapItem.starter;
+                case 'G':
+                    return MapItem.grass;
+                case 'R':
+                    return MapItem.rocks;
+                case 'M':
+                    return MapItem.mushroom;
+                case 'E':
+                    return MapItem.tree1;
+                case 'P':
+                    return MapItem.player;
+                default:
+                    return MapItem.ground;
             }
         }
     }
