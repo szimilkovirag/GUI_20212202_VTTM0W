@@ -1,4 +1,5 @@
-﻿using GhostHunter.Logic;
+﻿using GhostHunter.Controller;
+using GhostHunter.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,13 @@ namespace GhostHunter
     /// </summary>
     public partial class MainWindow : Window
     {
+        GameController controller;
         public MainWindow()
         {
             InitializeComponent();
             GhostHunterLogic logic = new GhostHunterLogic();
             display.SetUpModel(logic);
+            controller = new GameController(logic);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -37,6 +40,12 @@ namespace GhostHunter
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             display.SetupSizes(new Size(grid.ActualWidth, grid.ActualHeight));
+            display.InvalidateVisual();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            controller.KeyPressed(e.Key);
             display.InvalidateVisual();
         }
     }
