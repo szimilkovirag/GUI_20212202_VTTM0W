@@ -2,7 +2,7 @@
 
 namespace GhostHunter.Logic
 {
-    internal interface IGameControl
+    public interface IGameControl
     {
         void Move(Direction direction);
     }
