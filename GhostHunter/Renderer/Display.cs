@@ -36,12 +36,12 @@ namespace GhostHunter.Renderer
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            if(model!=null && area.Width > 0 && area.Height > 0)
+            if(model!=null && area.Width > 50 && area.Height > 50)
             {
-                drawingContext.DrawRectangle(StarterBrush, null, new Rect(0, 0, area.Width, area.Height));
+                double rectWidth = area.Width / model.GameMatrix.GetLength(1);
+                double rectHeight = area.Height / model.GameMatrix.GetLength(0);
 
-                double rectWidth = ActualWidth / model.GameMatrix.GetLength(0);
-                double rectHeight = ActualHeight / model.GameMatrix.GetLength(0);
+                drawingContext.DrawRectangle(StarterBrush, null, new Rect(0, 0, area.Width, area.Height));
 
                 for (int i = 0; i < model.GameMatrix.GetLength(0); i++)
                 {
