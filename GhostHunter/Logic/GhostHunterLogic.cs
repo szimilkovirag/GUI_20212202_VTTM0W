@@ -7,25 +7,26 @@ using System.Threading.Tasks;
 
 namespace GhostHunter.Logic
 {
+    public enum MapItem
+    {
+        flower, rocks, mushroom, grass, player, enemy, enemy2, boss, tree1, tree2, trees, ground, woods, winter, desert, starter,
+    }
+
+    public enum Direction
+    {
+        Up, Down, Left, Right
+    }
     public class GhostHunterLogic: IGameModel, IGameControl
     {
-        public enum MapItem
-        {
-            flower, rocks, mushroom, grass, player, tree1, tree2, trees, ground, woods, winter, desert, starter, 
-        }
-
-        public enum Direction
-        {
-            Up, Down, Left, Right
-        }
-
         public MapItem[,] GameMatrix { get; set; }
+        public List<Enemy> Enemies { get; set; }
         private int player_i;
         private int player_j;
         private string[] levels;
 
         public GhostHunterLogic()
         {
+            Enemies = new List<Enemy>();
             levels = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(),"Maps"),"*.txt");
             LoadNext(levels[0]);
         }
@@ -44,9 +45,22 @@ namespace GhostHunter.Logic
                         player_i = i;
                         player_j = j;
                     }
+                    if(GameMatrix[i, j] == MapItem.enemy)
+                    {
+                        Enemies.Add(new AttackerEnemy(i, j, GameMatrix));
+                    }
+                    if(GameMatrix[i, j] == MapItem.enemy2)
+                    {
+                        Enemies.Add(new ArcherEnemy(i, j, GameMatrix));
+                    }
+                    if(GameMatrix[i, j] == MapItem.boss)
+                    {
+                        Enemies.Add(new BossEnemy(i, j, GameMatrix));
+                    }
                 }
             }
         }
+
         public void Move(Direction direction)
         {
             int new_i = player_i;
@@ -122,6 +136,12 @@ namespace GhostHunter.Logic
                     return MapItem.tree1;
                 case 'P':
                     return MapItem.player;
+                case 'X':
+                    return MapItem.enemy;
+                case 'Y':
+                    return MapItem.enemy2;
+                case 'Z':
+                    return MapItem.boss;
                 default:
                     return MapItem.ground;
             }

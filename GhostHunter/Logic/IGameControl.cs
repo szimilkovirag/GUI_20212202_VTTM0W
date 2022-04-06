@@ -1,6 +1,4 @@
-﻿using static GhostHunter.Logic.GhostHunterLogic;
-
-namespace GhostHunter.Logic
+﻿namespace GhostHunter.Logic
 {
     public interface IGameControl
     {
