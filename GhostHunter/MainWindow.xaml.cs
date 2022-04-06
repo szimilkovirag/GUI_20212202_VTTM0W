@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace GhostHunter
 {
@@ -22,19 +23,32 @@ namespace GhostHunter
     /// </summary>
     public partial class MainWindow : Window
     {
+        GhostHunterLogic logic;
         GameController controller;
+        DispatcherTimer dt;
         public MainWindow()
         {
             InitializeComponent();
-            GhostHunterLogic logic = new GhostHunterLogic();
-            display.SetUpModel(logic);
-            controller = new GameController(logic);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            logic = new GhostHunterLogic();
             display.SetupSizes(new Size(grid.ActualWidth,grid.ActualHeight));
+            display.SetUpModel(logic);
+            controller = new GameController(logic);
             display.InvalidateVisual();
+            dt = new DispatcherTimer();
+            dt.Interval = TimeSpan.FromMilliseconds(200);
+            dt.Tick += (sender, eargs) =>
+            {
+                foreach (var item in logic.Enemies)
+                {
+                    item.MoveEnemy();
+                    display.InvalidateVisual();
+                }
+            };
+            dt.Start();
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)

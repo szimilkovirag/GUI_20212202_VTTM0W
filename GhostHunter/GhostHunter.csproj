@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Elements\archer_character.png" />
+    <None Remove="Elements\archer_enemy.png" />
+    <None Remove="Elements\attacker_character.png" />
+    <None Remove="Elements\boss2.PNG" />
+    <None Remove="Elements\boss3.png" />
     <None Remove="Elements\cat.png" />
     <None Remove="Elements\desert.png" />
     <None Remove="Elements\flower.png" />
@@ -26,6 +31,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Elements\archer_character.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\archer_enemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\attacker_character.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\boss2.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\boss3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Elements\desert.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -69,12 +89,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Maps\starter_map.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Elements\cat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
