@@ -9,7 +9,7 @@ namespace GhostHunter.Logic
 {
     public enum MapItem
     {
-        flower, rocks, mushroom, grass, player, enemy, enemy2, boss, tree1, tree2, trees, ground, woods, winter, desert, starter,
+        flower, rocks, mushroom, grass, player1, player2, enemy, enemy2, boss, tree1, tree2, trees, ground, woods, winter, desert, starter,
     }
 
     public enum Direction
@@ -20,8 +20,7 @@ namespace GhostHunter.Logic
     {
         public MapItem[,] GameMatrix { get; set; }
         public List<Enemy> Enemies { get; set; }
-        private int player_i;
-        private int player_j;
+        public Player Player { get; set; }
         private string[] levels;
 
         public GhostHunterLogic()
@@ -31,7 +30,7 @@ namespace GhostHunter.Logic
             LoadNext(levels[0]);
         }
 
-        private void LoadNext(string path)
+        public void LoadNext(string path)
         {
             string[] lines = File.ReadAllLines(path);
             GameMatrix = new MapItem[int.Parse(lines[1]), int.Parse(lines[0])];
@@ -40,12 +39,15 @@ namespace GhostHunter.Logic
                 for (int j = 0; j < GameMatrix.GetLength(1); j++)
                 {
                     GameMatrix[i, j] = ConvertToEnum(lines[i + 2][j]);
-                    if (GameMatrix[i, j] == MapItem.player)
+                    if (GameMatrix[i, j] == MapItem.player1)
                     {
-                        player_i = i;
-                        player_j = j;
+                        Player = new AttackerPlayer(i, j);
                     }
-                    if(GameMatrix[i, j] == MapItem.enemy)
+                    if (GameMatrix[i, j] == MapItem.player2)
+                    {
+                        Player = new ArcherPlayer(i, j);
+                    }
+                    if (GameMatrix[i, j] == MapItem.enemy)
                     {
                         Enemies.Add(new AttackerEnemy(i, j, GameMatrix));
                     }
@@ -60,11 +62,12 @@ namespace GhostHunter.Logic
                 }
             }
         }
+        
 
         public void Move(Direction direction)
         {
-            int new_i = player_i;
-            int new_j = player_j;
+            int new_i = Player.I;
+            int new_j = Player.J;
             switch (direction)
             {
                 case Direction.Up:
@@ -86,10 +89,13 @@ namespace GhostHunter.Logic
             }
             if (GameMatrix[new_i, new_j] == MapItem.ground)
             {
-                GameMatrix[player_i, player_j] = MapItem.ground;
-                player_i = new_i;
-                player_j = new_j;
-                GameMatrix[player_i, player_j] = MapItem.player;
+                GameMatrix[Player.I, Player.J] = MapItem.ground;
+                Player.I = new_i;
+                Player.J = new_j;
+                if(Player is AttackerPlayer)
+                    GameMatrix[Player.I, Player.J] = MapItem.player1;
+                if (Player is ArcherPlayer)
+                    GameMatrix[Player.I, Player.J] = MapItem.player2;
             }
             else if (GameMatrix[new_i, new_j] == MapItem.woods)
             {
@@ -107,6 +113,20 @@ namespace GhostHunter.Logic
             {
                 LoadNext(levels[0]);
             }
+        }
+        public void Switch()
+        {
+            if (Player is AttackerPlayer)
+            {
+                Player = new ArcherPlayer(Player.I, Player.J);
+                GameMatrix[Player.I, Player.J] = MapItem.player2;
+            }     
+            else
+            {
+                Player = new AttackerPlayer(Player.I, Player.J);
+                GameMatrix[Player.I, Player.J] = MapItem.player1;
+            }
+                
         }
         private MapItem ConvertToEnum(char v)
         {
@@ -135,7 +155,9 @@ namespace GhostHunter.Logic
                 case 'E':
                     return MapItem.tree1;
                 case 'P':
-                    return MapItem.player;
+                    return MapItem.player1;
+                case 'p':
+                    return MapItem.player2;
                 case 'X':
                     return MapItem.enemy;
                 case 'Y':
@@ -146,5 +168,7 @@ namespace GhostHunter.Logic
                     return MapItem.ground;
             }
         }
+
+        
     }
 }

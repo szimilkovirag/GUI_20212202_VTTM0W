@@ -3,5 +3,6 @@
     public interface IGameControl
     {
         void Move(Direction direction);
+        void Switch();
     }
 }
