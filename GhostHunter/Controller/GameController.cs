@@ -36,6 +36,9 @@ namespace GhostHunter.Controller
                 case Key.Q:
                     control.Switch();
                     break;
+                case Key.Space:
+                    control.NewShoot();
+                    break;
             }
         }
     }

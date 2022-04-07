@@ -32,25 +32,39 @@ namespace GhostHunter
             logic = new GhostHunterLogic();
             display.SetUpModel(logic);
             controller = new GameController(logic);
+
+            //dt = new DispatcherTimer();
+            //dt.Interval = TimeSpan.FromMilliseconds(100);
+            //dt.Tick += Dt_Tick;
+            //dt.Start();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
-            display.InvalidateVisual();
             dt = new DispatcherTimer();
             dt.Interval = TimeSpan.FromMilliseconds(200);
             dt.Tick += Dt_Tick;
             dt.Start();
+
+            display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
+            logic.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
+            display.InvalidateVisual();
         }
 
         private void Dt_Tick(object sender, EventArgs e)
         {
-            
+            logic.TimeStep();
+
+            foreach (var item in logic.Enemies)
+            {
+                item.MoveEnemy();
+                display.InvalidateVisual();
+            }
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
+            logic.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             display.InvalidateVisual();
         }
 

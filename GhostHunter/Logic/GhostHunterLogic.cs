@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,22 @@ namespace GhostHunter.Logic
     {
         public MapItem[,] GameMatrix { get; set; }
         public List<Enemy> Enemies { get; set; }
+        public List<Arrow> Arrows { get; set; }
         public Player Player { get; set; }
         private string[] levels;
+
+        event EventHandler Changed;
+
+        Size size;
+        public void Resize(Size area)
+        {
+            this.size = area;
+        }
 
         public GhostHunterLogic()
         {
             Enemies = new List<Enemy>();
+            Arrows = new List<Arrow>();
             levels = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(),"Maps"),"*.txt");
             LoadNext(levels[0]);
         }
@@ -112,6 +123,10 @@ namespace GhostHunter.Logic
             }
         }
 
+        public void NewShoot()
+        {
+            Arrows.Add(new Arrow(new Point(size.Width / 2, size.Height / 2),new Vector(20,20)));
+        }
 
         public void Switch()
         {
@@ -127,6 +142,20 @@ namespace GhostHunter.Logic
             }
                 
         }
+
+        public void TimeStep()
+        {
+            for (int i = 0; i < Arrows.Count; i++)
+            {
+                bool inside = Arrows[i].Move(size);
+                if(!inside)
+                {
+                    Arrows.RemoveAt(i);
+                }
+            }
+            Changed?.Invoke(this,null);
+        }
+
         private MapItem ConvertToEnum(char v)
         {
             switch (v)

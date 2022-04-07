@@ -4,5 +4,6 @@
     {
         void Move(Direction direction);
         void Switch();
+        void NewShoot();
     }
 }
