@@ -24,9 +24,6 @@ namespace GhostHunter.Logic
         public List<Arrow> Arrows { get; set; }
         public Player Player { get; set; }
         private string[] levels;
-
-        event EventHandler Changed;
-
         Size size;
         public void Resize(Size area)
         {
@@ -142,20 +139,21 @@ namespace GhostHunter.Logic
             }
                 
         }
-
-        public void TimeStep()
+        public void MoveItems()
         {
             for (int i = 0; i < Arrows.Count; i++)
             {
                 bool inside = Arrows[i].Move(size);
-                if(!inside)
+                if (!inside)
                 {
                     Arrows.RemoveAt(i);
                 }
             }
-            Changed?.Invoke(this,null);
+            foreach (var item in Enemies)
+            {
+                item.MoveEnemy(Player.I, Player.J);
+            }
         }
-
         private MapItem ConvertToEnum(char v)
         {
             switch (v)
