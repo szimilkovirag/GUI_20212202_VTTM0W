@@ -19,7 +19,15 @@ namespace GhostHunter.Logic
             this.enemy_j = enemy_j;
             this.HP = 100;
         }
-        public abstract void MoveEnemy();
+        public abstract void MoveEnemy(int player_i, int player_j);
+
+        public bool PlayerIsInSight(int player_i, int player_j)
+        {
+            if (Math.Abs(player_i - enemy_i) <= 10 && Math.Abs(player_j - enemy_j) <= 20)
+                return true;
+            else
+                return false;
+        }
 
         protected int Randomize(int min, int max)
         {

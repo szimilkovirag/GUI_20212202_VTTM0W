@@ -12,20 +12,19 @@ namespace GhostHunter.Logic
         {
         }
 
-        public override void MoveEnemy()
+        public override void MoveEnemy(int player_i, int player_j)
         {
             int new_i = enemy_i;
             int new_j = enemy_j;
-            int directionX = Randomize(-1, 2);
-            int directionY = Randomize(-1, 2);
-            if (directionY == -1 && new_i - 1 >= 0)
-                new_i--;
-            if (directionY == 1 && new_i + 1 < GameMatrix.GetLength(0))
-                new_i++;
-            if (directionX == -1 && new_j - 1 >= 0)
-                new_j--;
-            if (directionX == 1 && new_j + 1 < GameMatrix.GetLength(1))
-                new_j++;
+            if (PlayerIsInSight(player_i, player_j))
+            {
+                int dx = player_j - enemy_j;
+                int dy = player_i - enemy_i;
+                if (dx < 0) new_j--;
+                if (dx > 0) new_j++;
+                if (dy < 0) new_i--;
+                if (dy > 0) new_i++;
+            }
             if (GameMatrix[new_i, new_j] == MapItem.ground)
             {
                 GameMatrix[enemy_i, enemy_j] = MapItem.ground;
