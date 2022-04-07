@@ -14,14 +14,14 @@ namespace GhostHunter.Renderer
     internal class Display:FrameworkElement
     {
         IGameModel model;
-        Size area;
+        Size size;
         public void SetUpModel(IGameModel model)
         {
             this.model = model;
         }
-        public void SetupSizes(Size area)
+        public void Resize(Size area)
         {
-            this.area = area;
+            this.size = area;
             this.InvalidateVisual();
         }
 
@@ -36,12 +36,12 @@ namespace GhostHunter.Renderer
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            if(model!=null && area.Width > 50 && area.Height > 50)
+            if(model!=null && size.Width > 50 && size.Height > 50)
             {
-                double rectWidth = area.Width / model.GameMatrix.GetLength(1);
-                double rectHeight = area.Height / model.GameMatrix.GetLength(0);
+                double rectWidth = size.Width / model.GameMatrix.GetLength(1);
+                double rectHeight = size.Height / model.GameMatrix.GetLength(0);
 
-                drawingContext.DrawRectangle(StarterBrush, null, new Rect(0, 0, area.Width, area.Height));
+                drawingContext.DrawRectangle(StarterBrush, null, new Rect(0, 0, size.Width, size.Height));
 
                 for (int i = 0; i < model.GameMatrix.GetLength(0); i++)
                 {
@@ -57,7 +57,11 @@ namespace GhostHunter.Renderer
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "grass_mushroom_tree.png"), UriKind.RelativeOrAbsolute)))
                                     , null, new Rect(j * rectWidth, i * rectHeight, 120, 90));
                                 break;
-                            case MapItem.player:
+                            case MapItem.player1:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "attacker_character.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 40, 40));
+                                break;
+                            case MapItem.player2:
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "archer_character.png"), UriKind.RelativeOrAbsolute)))
                                     , null, new Rect(j * rectWidth, i * rectHeight, 40, 40));
                                 break;
