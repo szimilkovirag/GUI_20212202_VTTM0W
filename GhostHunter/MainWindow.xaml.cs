@@ -61,7 +61,6 @@ namespace GhostHunter
                 display.InvalidateVisual();
             }
         }
-
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));

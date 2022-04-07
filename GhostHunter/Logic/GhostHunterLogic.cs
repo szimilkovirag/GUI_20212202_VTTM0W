@@ -40,7 +40,6 @@ namespace GhostHunter.Logic
             levels = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(),"Maps"),"*.txt");
             LoadNext(levels[0]);
         }
-
         public void LoadNext(string path)
         {
             string[] lines = File.ReadAllLines(path);
@@ -73,8 +72,6 @@ namespace GhostHunter.Logic
                 }
             }
         }
-        
-
         public void Move(Direction direction)
         {
             int new_i = Player.I;
