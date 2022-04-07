@@ -53,13 +53,8 @@ namespace GhostHunter
 
         private void Dt_Tick(object sender, EventArgs e)
         {
-            logic.TimeStep();
-
-            foreach (var item in logic.Enemies)
-            {
-                item.MoveEnemy();
-                display.InvalidateVisual();
-            }
+            logic.MoveItems();
+            display.InvalidateVisual();
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
