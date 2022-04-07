@@ -46,10 +46,8 @@ namespace GhostHunter
 
         private void Dt_Tick(object sender, EventArgs e)
         {
-            logic.MoveItems();
-            display.InvalidateVisual();
+            
         }
-
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));

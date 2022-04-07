@@ -112,13 +112,7 @@ namespace GhostHunter.Logic
             }
         }
 
-        public void MoveItems()
-        {
-            foreach (var item in Enemies)
-            {
-                item.MoveEnemy(Player.I, Player.J);
-            }
-        }
+
         public void Switch()
         {
             if (Player is AttackerPlayer)
