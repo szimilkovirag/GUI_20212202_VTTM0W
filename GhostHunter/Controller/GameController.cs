@@ -33,6 +33,9 @@ namespace GhostHunter.Controller
                 case Key.D:
                     control.Move(Direction.Right);
                     break;
+                case Key.Q:
+                    control.Switch();
+                    break;
             }
         }
     }
