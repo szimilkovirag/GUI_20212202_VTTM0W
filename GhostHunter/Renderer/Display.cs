@@ -43,6 +43,12 @@ namespace GhostHunter.Renderer
 
                 drawingContext.DrawRectangle(StarterBrush, null, new Rect(0, 0, size.Width, size.Height));
 
+                foreach (var item in model.Arrows)
+                {
+                    //drawingContext.PushTransform(new RotateTransform(model.an));
+                    drawingContext.DrawEllipse(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "arrow.png"), UriKind.RelativeOrAbsolute))), null, new Point(item.Center.X, item.Center.Y), 10, 5);
+                }
+
                 for (int i = 0; i < model.GameMatrix.GetLength(0); i++)
                 {
                     for (int j = 0; j < model.GameMatrix.GetLength(1); j++)
@@ -59,13 +65,11 @@ namespace GhostHunter.Renderer
                                 break;
                             case MapItem.player1:
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "attacker_character.png"), UriKind.RelativeOrAbsolute)))
-                                    , null, new Rect(j * rectWidth, i * rectHeight, 40, 40));
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 60));
                                 break;
                             case MapItem.player2:
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "archer_character.png"), UriKind.RelativeOrAbsolute)))
-                                    , null, new Rect(j * rectWidth, i * rectHeight, 40, 40));
-                                int player2_i = i;
-                                int player2_j = j;
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 60));
                                 break;
                             case MapItem.tree2:
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "tree2.png"), UriKind.RelativeOrAbsolute)))
@@ -101,11 +105,11 @@ namespace GhostHunter.Renderer
                                 break;
                             case MapItem.enemy:
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "archer_enemy.png"), UriKind.RelativeOrAbsolute)))
-                                    , null, new Rect(j * rectWidth, i * rectHeight, 35, 50));
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 45, 60));
                                 break;
                             case MapItem.enemy2:
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "attacker_enemy.png"), UriKind.RelativeOrAbsolute)))
-                                    , null, new Rect(j * rectWidth, i * rectHeight, 35, 50));
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 45, 60));
                                 break;
                             case MapItem.boss:
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "boss3.png"), UriKind.RelativeOrAbsolute)))
@@ -119,11 +123,7 @@ namespace GhostHunter.Renderer
                     }
                 }
 
-                foreach (var item in model.Arrows)
-                {
-                    drawingContext.DrawEllipse(Brushes.Red,null,new Point(item.Center.X,item.Center.Y),5,5);
-                }
-            
+                
             }
         }
     }
