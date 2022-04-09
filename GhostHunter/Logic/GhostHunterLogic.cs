@@ -82,6 +82,7 @@ namespace GhostHunter.Logic
                     {
                         new_i--;
                         Player.Direction = Direction.Up;
+                        //Angle = 270;
                     }
                     break;
                 case Direction.Down:
@@ -89,6 +90,7 @@ namespace GhostHunter.Logic
                     {
                         new_i++;
                         Player.Direction = Direction.Down;
+                        //Angle = 90;
                     }
                     break;
                 case Direction.Left:
@@ -96,6 +98,7 @@ namespace GhostHunter.Logic
                     {
                         new_j--;
                         Player.Direction = Direction.Left;
+                        Angle = 0;
                     }
                     break;
                 case Direction.Right:
@@ -103,6 +106,7 @@ namespace GhostHunter.Logic
                     {
                         new_j++;
                         Player.Direction = Direction.Right;
+                        Angle = 180;
                     }
                     break;
                 default:
@@ -149,15 +153,19 @@ namespace GhostHunter.Logic
                 {
                     case Direction.Up:
                         vector = new Vector(0, -90);
-                    break;
+                        Angle = 270;
+                        break;
                     case Direction.Down:
                         vector = new Vector(0, 90);
+                        Angle = 90;
                         break;
                     case Direction.Right:
                         vector = new Vector(90, 0);
+                        Angle = 0;
                         break;
                     case Direction.Left:
                         vector = new Vector(-90, 0);
+                        Angle = 180;
                         break;
                 }
                 Arrows.Add(new Arrow(new Point(Player.J*rectWidth+30,Player.I*rectHeight+30), vector));
