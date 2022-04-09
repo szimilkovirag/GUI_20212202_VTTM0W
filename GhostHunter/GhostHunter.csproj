@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="Elements\archer_character.png" />
     <None Remove="Elements\archer_enemy.png" />
+    <None Remove="Elements\arrow.PNG" />
     <None Remove="Elements\attacker_character.png" />
     <None Remove="Elements\boss2.PNG" />
     <None Remove="Elements\boss3.png" />
@@ -35,6 +36,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Elements\archer_enemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\arrow.PNG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Elements\attacker_character.png">

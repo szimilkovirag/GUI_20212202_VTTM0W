@@ -25,6 +25,8 @@ namespace GhostHunter.Logic
         public Player Player { get; set; }
         private string[] levels;
         Size size;
+        public double Angle { get; set; }
+
         public void Resize(Size area)
         {
             this.size = area;
@@ -76,18 +78,36 @@ namespace GhostHunter.Logic
             switch (direction)
             {
                 case Direction.Up:
-                    if (new_i - 1 >= 0) new_i--;
+                    if (new_i - 1 >= 0)
+                    {
+                        new_i--;
+                        Player.Direction = Direction.Up;
+                        //Angle = 270;
+                    }
                     break;
                 case Direction.Down:
                     if (new_i + 1 < GameMatrix.GetLength(0))
+                    {
                         new_i++;
+                        Player.Direction = Direction.Down;
+                        //Angle = 90;
+                    }
                     break;
                 case Direction.Left:
-                    if (new_j - 1 >= 0) new_j--;
+                    if (new_j - 1 >= 0)
+                    {
+                        new_j--;
+                        Player.Direction = Direction.Left;
+                        Angle = 0;
+                    }
                     break;
                 case Direction.Right:
                     if (new_j + 1 < GameMatrix.GetLength(1))
+                    {
                         new_j++;
+                        Player.Direction = Direction.Right;
+                        Angle = 180;
+                    }
                     break;
                 default:
                     break;
@@ -122,7 +142,34 @@ namespace GhostHunter.Logic
 
         public void NewShoot()
         {
-            Arrows.Add(new Arrow(new Point(size.Width / 2, size.Height / 2),new Vector(20,20)));
+            double rectWidth = size.Width / GameMatrix.GetLength(1);
+            double rectHeight = size.Height / GameMatrix.GetLength(0);
+
+            Vector vector;
+
+            if (Player is ArcherPlayer)
+            {
+                switch(Player.Direction)
+                {
+                    case Direction.Up:
+                        vector = new Vector(0, -90);
+                        Angle = 270;
+                        break;
+                    case Direction.Down:
+                        vector = new Vector(0, 90);
+                        Angle = 90;
+                        break;
+                    case Direction.Right:
+                        vector = new Vector(90, 0);
+                        Angle = 0;
+                        break;
+                    case Direction.Left:
+                        vector = new Vector(-90, 0);
+                        Angle = 180;
+                        break;
+                }
+                Arrows.Add(new Arrow(new Point(Player.J*rectWidth+30,Player.I*rectHeight+30), vector));
+            }
         }
 
         public void Switch()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GhostHunter.Logic
 {
@@ -13,6 +14,8 @@ namespace GhostHunter.Logic
         protected int enemy_j;
         public int HP { get; set; }
         public List<Arrow> Arrows { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public double Angle { get; set; }
+        public Player Player { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Enemy(int enemy_i, int enemy_j, MapItem[,] GameMatrix)
         {

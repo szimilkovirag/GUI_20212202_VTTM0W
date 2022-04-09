@@ -34,9 +34,17 @@ namespace GhostHunter.Logic
                 if (directionY == 1 && new_i + 1 < GameMatrix.GetLength(0))
                     new_i++;
                 if (directionX == -1 && new_j - 1 >= 0)
+                {
                     new_j--;
+                    Angle = 180;
+                }
+                    
                 if (directionX == 1 && new_j + 1 < GameMatrix.GetLength(1))
+                {
                     new_j++;
+                    Angle = 0;
+                }
+                    
             }
             if (GameMatrix[new_i, new_j] == MapItem.ground)
             {
