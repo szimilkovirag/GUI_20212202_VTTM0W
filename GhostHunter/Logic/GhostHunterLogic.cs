@@ -19,14 +19,13 @@ namespace GhostHunter.Logic
     }
     public class GhostHunterLogic: IGameModel, IGameControl
     {
+        private Size size;
         public MapItem[,] GameMatrix { get; set; }
         public List<Enemy> Enemies { get; set; }
         public List<Arrow> Arrows { get; set; }
         public Player Player { get; set; }
         private string[] levels;
-        Size size;
-        public double Angle { get; set; }
-
+        
         public void Resize(Size area)
         {
             this.size = area;
@@ -70,6 +69,7 @@ namespace GhostHunter.Logic
                     }
                 }
             }
+            ;
         }
         public void Move(Direction direction)
         {
@@ -98,7 +98,7 @@ namespace GhostHunter.Logic
                     {
                         new_j--;
                         Player.Direction = Direction.Left;
-                        Angle = 0;
+                        Player.Angle = -180;
                     }
                     break;
                 case Direction.Right:
@@ -106,7 +106,7 @@ namespace GhostHunter.Logic
                     {
                         new_j++;
                         Player.Direction = Direction.Right;
-                        Angle = 180;
+                        Player.Angle = 0;
                     }
                     break;
                 default:
@@ -146,29 +146,31 @@ namespace GhostHunter.Logic
             double rectHeight = size.Height / GameMatrix.GetLength(0);
 
             Vector vector;
-
+            Arrow arrow = new Arrow();
+            arrow.Center = new Point(Player.J * rectWidth + 30, Player.I * rectHeight + 30);
             if (Player is ArcherPlayer)
             {
                 switch(Player.Direction)
                 {
                     case Direction.Up:
                         vector = new Vector(0, -90);
-                        Angle = 270;
+                        arrow.Angle = 270;
                         break;
                     case Direction.Down:
                         vector = new Vector(0, 90);
-                        Angle = 90;
+                        arrow.Angle = 90;
                         break;
                     case Direction.Right:
                         vector = new Vector(90, 0);
-                        Angle = 0;
+                        arrow.Angle = 0;
                         break;
                     case Direction.Left:
                         vector = new Vector(-90, 0);
-                        Angle = 180;
+                        arrow.Angle = 180;
                         break;
                 }
-                Arrows.Add(new Arrow(new Point(Player.J*rectWidth+30,Player.I*rectHeight+30), vector));
+                arrow.Speed = vector;
+                Arrows.Add(arrow);
             }
         }
 
@@ -186,19 +188,18 @@ namespace GhostHunter.Logic
             }
                 
         }
-        public void MoveItems()
+        public void MoveEnemy()
+        {
+            foreach (var item in Enemies)
+                item.MoveEnemy(Player.I, Player.J);
+        }
+        public void MoveArrow()
         {
             for (int i = 0; i < Arrows.Count; i++)
             {
                 bool inside = Arrows[i].Move(size);
                 if (!inside)
-                {
                     Arrows.RemoveAt(i);
-                }
-            }
-            foreach (var item in Enemies)
-            {
-                item.MoveEnemy(Player.I, Player.J);
             }
         }
         private MapItem ConvertToEnum(char v)

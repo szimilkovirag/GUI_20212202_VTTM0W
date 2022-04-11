@@ -12,8 +12,8 @@ namespace GhostHunter.Logic
         public int I { get; set; }
         public int J { get; set; }
         public int HP { get; set; }
+        public double Angle { get; set; }
         public Direction Direction { get; set; }
-
         public Player(int player_i, int player_j)
         {
             this.I = player_i;

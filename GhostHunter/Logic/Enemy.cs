@@ -7,15 +7,13 @@ using System.Windows;
 
 namespace GhostHunter.Logic
 {
-    public abstract class Enemy : IGameModel
+    public abstract class Enemy
     {
         public MapItem[,] GameMatrix { get; set; }
         protected int enemy_i;
         protected int enemy_j;
         public int HP { get; set; }
-        public List<Arrow> Arrows { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public double Angle { get; set; }
-        public Player Player { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Enemy(int enemy_i, int enemy_j, MapItem[,] GameMatrix)
         {
