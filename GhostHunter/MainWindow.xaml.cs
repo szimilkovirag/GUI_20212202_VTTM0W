@@ -26,6 +26,7 @@ namespace GhostHunter
         GhostHunterLogic logic;
         GameController controller;
         DispatcherTimer dt;
+        DispatcherTimer dtarrow;
         public MainWindow()
         {
             InitializeComponent();
@@ -46,14 +47,25 @@ namespace GhostHunter
             dt.Tick += Dt_Tick;
             dt.Start();
 
+            dtarrow = new DispatcherTimer();
+            dtarrow.Interval = TimeSpan.FromMilliseconds(70);
+            dtarrow.Tick += Dtarrow_Tick;
+            dtarrow.Start();
+
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             logic.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             display.InvalidateVisual();
         }
 
+        private void Dtarrow_Tick(object sender, EventArgs e)
+        {
+            logic.MoveArrow();
+            display.InvalidateVisual();
+        }
+
         private void Dt_Tick(object sender, EventArgs e)
         {
-            logic.MoveItems();
+            logic.MoveEnemy();
             display.InvalidateVisual();
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
