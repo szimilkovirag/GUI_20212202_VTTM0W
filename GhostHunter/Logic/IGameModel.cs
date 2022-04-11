@@ -7,7 +7,7 @@ namespace GhostHunter.Logic
     {
         MapItem[,] GameMatrix { get; set; }
         List<Arrow> Arrows { get; set; }
-        double Angle { get; set; }
         Player Player { get; set; }
+        List<Enemy> Enemies { get; set; }
     }
 }

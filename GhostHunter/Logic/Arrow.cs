@@ -11,13 +11,7 @@ namespace GhostHunter.Logic
     {
         public Point Center { get; set; }
         public Vector Speed { get; set; }
-
-        public Arrow(Point center, Vector speed)
-        {
-            this.Center = center;
-            this.Speed = speed;
-        }
-
+        public double Angle { get; set; }
         public bool Move(Size area)
         {
             Point newCenter = new Point(Center.X + (int)Speed.X, Center.Y + (int)Speed.Y);
