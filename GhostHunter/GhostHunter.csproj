@@ -11,6 +11,7 @@
     <None Remove="Elements\archer_enemy.png" />
     <None Remove="Elements\arrow.PNG" />
     <None Remove="Elements\attacker_character.png" />
+    <None Remove="Elements\attacker_enemy.png" />
     <None Remove="Elements\boss2.PNG" />
     <None Remove="Elements\boss3.png" />
     <None Remove="Elements\cat.png" />
@@ -36,6 +37,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Elements\archer_enemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\attacker_enemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Elements\arrow.PNG">
