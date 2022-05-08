@@ -17,7 +17,7 @@ namespace GhostHunter.Logic
     {
         Up, Down, Left, Right
     }
-    public class GhostHunterLogic: IGameModel, IGameControl
+    public class GhostHunterLogic : IGameModel, IGameControl
     {
         private Size size;
         public MapItem[,] GameMatrix { get; set; }
@@ -25,7 +25,11 @@ namespace GhostHunter.Logic
         public List<Arrow> Arrows { get; set; }
         public Player Player { get; set; }
         private string[] levels;
-        
+        private double rectWidth;
+        private double rectHeight;
+
+        public event EventHandler GameOver;
+
         public void Resize(Size area)
         {
             this.size = area;
@@ -35,7 +39,7 @@ namespace GhostHunter.Logic
         {
             Enemies = new List<Enemy>();
             Arrows = new List<Arrow>();
-            levels = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(),"Maps"),"*.txt");
+            levels = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Maps"), "*.txt");
             LoadNext(levels[0]);
         }
         public void LoadNext(string path)
@@ -59,17 +63,16 @@ namespace GhostHunter.Logic
                     {
                         Enemies.Add(new AttackerEnemy(i, j, GameMatrix));
                     }
-                    if(GameMatrix[i, j] == MapItem.enemy2)
+                    if (GameMatrix[i, j] == MapItem.enemy2)
                     {
                         Enemies.Add(new ArcherEnemy(i, j, GameMatrix));
                     }
-                    if(GameMatrix[i, j] == MapItem.boss)
+                    if (GameMatrix[i, j] == MapItem.boss)
                     {
                         Enemies.Add(new BossEnemy(i, j, GameMatrix));
                     }
                 }
             }
-            ;
         }
         public void Move(Direction direction)
         {
@@ -98,7 +101,7 @@ namespace GhostHunter.Logic
                     {
                         new_j--;
                         Player.Direction = Direction.Left;
-                        Player.Angle = -180;
+                        Player.Scale = -1;
                     }
                     break;
                 case Direction.Right:
@@ -106,7 +109,7 @@ namespace GhostHunter.Logic
                     {
                         new_j++;
                         Player.Direction = Direction.Right;
-                        Player.Angle = 0;
+                        Player.Scale = 1;
                     }
                     break;
                 default:
@@ -117,7 +120,7 @@ namespace GhostHunter.Logic
                 GameMatrix[Player.I, Player.J] = MapItem.ground;
                 Player.I = new_i;
                 Player.J = new_j;
-                if(Player is AttackerPlayer)
+                if (Player is AttackerPlayer)
                     GameMatrix[Player.I, Player.J] = MapItem.player1;
                 if (Player is ArcherPlayer)
                     GameMatrix[Player.I, Player.J] = MapItem.player2;
@@ -142,15 +145,15 @@ namespace GhostHunter.Logic
 
         public void NewShoot()
         {
-            double rectWidth = size.Width / GameMatrix.GetLength(1);
-            double rectHeight = size.Height / GameMatrix.GetLength(0);
+             rectWidth = size.Width / GameMatrix.GetLength(1);
+             rectHeight = size.Height / GameMatrix.GetLength(0);
 
             Vector vector;
             Arrow arrow = new Arrow();
             arrow.Center = new Point(Player.J * rectWidth + 30, Player.I * rectHeight + 30);
             if (Player is ArcherPlayer)
             {
-                switch(Player.Direction)
+                switch (Player.Direction)
                 {
                     case Direction.Up:
                         vector = new Vector(0, -90);
@@ -174,26 +177,22 @@ namespace GhostHunter.Logic
             }
         }
 
+        
+
         public void Switch()
         {
             if (Player is AttackerPlayer)
             {
                 Player = new ArcherPlayer(Player.I, Player.J);
                 GameMatrix[Player.I, Player.J] = MapItem.player2;
-            }     
+            }
             else
             {
                 Player = new AttackerPlayer(Player.I, Player.J);
                 GameMatrix[Player.I, Player.J] = MapItem.player1;
             }
-                
         }
-        public void MoveEnemy()
-        {
-            foreach (var item in Enemies)
-                item.MoveEnemy(Player.I, Player.J);
-        }
-        public void MoveArrow()
+        public void MoveItems()
         {
             for (int i = 0; i < Arrows.Count; i++)
             {
@@ -201,7 +200,57 @@ namespace GhostHunter.Logic
                 if (!inside)
                     Arrows.RemoveAt(i);
             }
+
+            //System.Drawing.Rectangle enemyrect = item.Rectangle;
+            foreach (var item in Enemies)
+            {
+                item.MoveEnemy(Player.I, Player.J);
+                System.Drawing.Rectangle enemyrect = item.Rectangle;
+                if (item is AttackerEnemy && enemyrect.IntersectsWith(Player.Rectangle))
+                {
+                    Player.Shield -= 50;
+                    if(Player.Shield <= 0)
+                    {
+                        Player.HP -= 50;
+                        if (Player.HP <= 0)
+                        {
+                            GameOver?.Invoke(this, null);
+                        }
+                    }
+                }
+                foreach (var arrow in Arrows)
+                {
+                    System.Drawing.Rectangle arrowRect = arrow.Rectangle;
+                    System.Drawing.Rectangle arrowRectseged = new System.Drawing.Rectangle((int)(arrow.Center.X / rectWidth -1.5), (int)(arrow.Center.Y / rectHeight +4), 3, 3);
+
+                    if (arrowRectseged.IntersectsWith(enemyrect))
+                    {
+                        //Arrows.RemoveAt()
+                        GameOver?.Invoke(this, null);
+                        //item.HP -= 30;
+                        //if (item.HP <= 0)
+                        //{
+                        //    GameOver?.Invoke(this, null);
+                        //}
+                    }
+                    //else if (arrowRect.IntersectsWith(Player.Rectangle))
+                    //{
+                    //    Player.HP -= 50;
+                    //    if (Player.HP <= 0)
+                    //    {
+                    //        GameOver?.Invoke(this, null);
+                    //    }
+                    //}
+                }
+
+            }
+
+
         }
+        //public void MoveArrow()
+        //{
+            
+        //}
         private MapItem ConvertToEnum(char v)
         {
             switch (v)
@@ -243,6 +292,47 @@ namespace GhostHunter.Logic
             }
         }
 
-        
+        //public void Dead()
+        //{
+        //    for (int i = 0; i < Enemies.Count; i++)
+        //    {
+        //        Rect enemyRect = new Rect(Enemies[i].enemy_i, Enemies[i].enemy_j, 45, 60);
+        //        Rect playerRect = new Rect(Player.I, Player.J, 60, 60);
+        //        if (Enemies[i] is AttackerEnemy && enemyRect.IntersectsWith(playerRect) && Player.Shield > 0)
+        //        {
+        //            Player.Shield -= 50;
+        //        }
+        //        else if (Enemies[i] is AttackerEnemy && enemyRect.IntersectsWith(playerRect) && Player.Shield <= 0)
+        //        {
+        //            Player.HP -= 50;
+        //            if (Player.HP <= 0)
+        //            {
+        //                GameOver?.Invoke(this, null);
+        //            }
+        //        }
+        //        foreach (var item in Arrows)
+        //        {
+        //            Rect arrowRect = new Rect(item.Center.X, item.Center.Y, 10, 5);
+
+        //            if (arrowRect.IntersectsWith(enemyRect))
+        //            {
+        //                Enemies[i].HP -= 30;
+        //                if (Enemies[i].HP <= 0)
+        //                {
+        //                    Enemies.RemoveAt(i);
+        //                }
+        //            }
+        //            else if (arrowRect.IntersectsWith(playerRect))
+        //            {
+        //                Player.HP -= 50;
+        //                if (Player.HP <= 0)
+        //                {
+        //                    GameOver?.Invoke(this, null);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
+
