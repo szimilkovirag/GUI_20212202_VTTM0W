@@ -11,8 +11,10 @@
     <None Remove="Elements\archer_enemy.png" />
     <None Remove="Elements\arrow.PNG" />
     <None Remove="Elements\attacker_character.png" />
+    <None Remove="Elements\attacker_enemy.png" />
     <None Remove="Elements\boss2.PNG" />
     <None Remove="Elements\boss3.png" />
+    <None Remove="Elements\bullet.PNG" />
     <None Remove="Elements\cat.png" />
     <None Remove="Elements\desert.png" />
     <None Remove="Elements\flower.png" />
@@ -32,6 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Elements\attacker_enemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Elements\archer_character.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -48,6 +53,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Elements\boss3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\bullet.PNG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Elements\desert.png">
