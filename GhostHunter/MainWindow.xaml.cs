@@ -26,18 +26,12 @@ namespace GhostHunter
         GhostHunterLogic logic;
         GameController controller;
         DispatcherTimer dt;
-        DispatcherTimer dtarrow;
         public MainWindow()
         {
             InitializeComponent();
             logic = new GhostHunterLogic();
             display.SetUpModel(logic);
             controller = new GameController(logic);
-
-            //dt = new DispatcherTimer();
-            //dt.Interval = TimeSpan.FromMilliseconds(100);
-            //dt.Tick += Dt_Tick;
-            //dt.Start();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -47,25 +41,23 @@ namespace GhostHunter
             dt.Tick += Dt_Tick;
             dt.Start();
 
-            dtarrow = new DispatcherTimer();
-            dtarrow.Interval = TimeSpan.FromMilliseconds(70);
-            dtarrow.Tick += Dtarrow_Tick;
-            dtarrow.Start();
-
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             logic.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
+            logic.GameOver += Logic_GameOver;
             display.InvalidateVisual();
         }
-
-        private void Dtarrow_Tick(object sender, EventArgs e)
+        private void Logic_GameOver(object sender, EventArgs e)
         {
-            logic.MoveArrow();
-            display.InvalidateVisual();
+            var result = MessageBox.Show("Game over!");
+            if (result == MessageBoxResult.OK)
+            {
+                this.Close();
+            }
         }
 
         private void Dt_Tick(object sender, EventArgs e)
         {
-            logic.MoveEnemy();
+            logic.MoveItems();
             display.InvalidateVisual();
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
