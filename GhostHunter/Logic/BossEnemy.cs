@@ -14,31 +14,23 @@ namespace GhostHunter.Logic
 
         public override void MoveEnemy(int player_i, int player_j)
         {
-            int new_i = Enemy_i;
-            int new_j = Enemy_j;
+            int new_i = enemy_i;
+            int new_j = enemy_j;
             if (PlayerIsInSight(player_i, player_j))
             {
-                int dx = player_j - Enemy_j;
-                int dy = player_i - Enemy_i;
-                if (dx < 0)
-                {
-                    new_j--;
-                    Scale = -1;
-                }
-                if (dx > 0)
-                {
-                    new_j++;
-                    Scale = 1;
-                }
+                int dx = player_j - enemy_j;
+                int dy = player_i - enemy_i;
+                if (dx < 0) new_j--;
+                if (dx > 0) new_j++;
                 if (dy < 0) new_i--;
                 if (dy > 0) new_i++;
             }
             if (GameMatrix[new_i, new_j] == MapItem.ground)
             {
-                GameMatrix[Enemy_i, Enemy_j] = MapItem.ground;
-                Enemy_i = new_i;
-                Enemy_j = new_j;
-                GameMatrix[Enemy_i, Enemy_j] = MapItem.boss;
+                GameMatrix[enemy_i, enemy_j] = MapItem.ground;
+                enemy_i = new_i;
+                enemy_j = new_j;
+                GameMatrix[enemy_i, enemy_j] = MapItem.boss;
             }
         }
     }
