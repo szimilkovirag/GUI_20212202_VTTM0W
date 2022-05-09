@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace GhostHunter.Logic
 {
@@ -16,19 +15,8 @@ namespace GhostHunter.Logic
         {
             if (PlayerIsInSight(player_i, player_j))
             {
-                int dx = player_j - Enemy_j;
-                if (dx < 0)
-                {
-                    Scale = -1;
-                }
-                if (dx > 0)
-                {
-                    Scale = 1;
-                }
                 //Shoot();
             }
         }
-
-        
     }
 }

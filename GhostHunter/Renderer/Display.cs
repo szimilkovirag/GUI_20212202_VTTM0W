@@ -38,7 +38,6 @@ namespace GhostHunter.Renderer
             base.OnRender(drawingContext);
             if(model!=null && size.Width > 50 && size.Height > 50)
             {
-                var r = model.Player.Rectangle;
                 double rectWidth = size.Width / model.GameMatrix.GetLength(1);
                 double rectHeight = size.Height / model.GameMatrix.GetLength(0);
 
@@ -66,13 +65,13 @@ namespace GhostHunter.Renderer
                                     , null, new Rect(j * rectWidth, i * rectHeight, 120, 90));
                                 break;
                             case MapItem.player1:
-                                drawingContext.PushTransform(new ScaleTransform(model.Player.Scale, 1, model.Player.J * rectWidth + 30, model.Player.I * rectHeight + 30));
+                                drawingContext.PushTransform(new RotateTransform(model.Player.Angle, model.Player.J * rectWidth + 30, model.Player.I * rectHeight + 30));
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "attacker_character.png"), UriKind.RelativeOrAbsolute)))
                                     , null, new Rect(j * rectWidth, i * rectHeight, 60, 60));
                                 drawingContext.Pop();
                                 break;
                             case MapItem.player2:
-                                drawingContext.PushTransform(new ScaleTransform(model.Player.Scale, 1, model.Player.J * rectWidth + 30, model.Player.I * rectHeight + 30));
+                                drawingContext.PushTransform(new RotateTransform(model.Player.Angle, model.Player.J * rectWidth + 30, model.Player.I * rectHeight + 30));
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "archer_character.png"), UriKind.RelativeOrAbsolute)))
                                     , null, new Rect(j * rectWidth, i * rectHeight, 60, 60));
                                 drawingContext.Pop();
@@ -109,41 +108,24 @@ namespace GhostHunter.Renderer
                                 drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "tree1.png"), UriKind.RelativeOrAbsolute)))
                                     , null, new Rect(j * rectWidth, i * rectHeight, 35, 35));
                                 break;
-                            case MapItem.enemy2:
-                                foreach (var item in model.Enemies)
-                                {
-                                    if (item is ArcherEnemy)
-                                    {
-                                        drawingContext.PushTransform(new ScaleTransform(item.Scale, 1, item.Enemy_j * rectWidth + 22, item.Enemy_i * rectHeight + 30));
-                                        drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "archer_enemy.png"), UriKind.RelativeOrAbsolute)))
-                                            , null, new Rect(j * rectWidth, i * rectHeight, 45, 60));
-                                        drawingContext.Pop();
-                                    }
-                                }
-                                break;
                             case MapItem.enemy:
                                 foreach (var item in model.Enemies)
                                 {
-                                    if (item is AttackerEnemy)
-                                    {
-                                        drawingContext.PushTransform(new ScaleTransform(item.Scale, 1, item.Enemy_j * rectWidth + 22, item.Enemy_i * rectHeight + 30));
-                                        drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "attacker_enemy.png"), UriKind.RelativeOrAbsolute)))
-                                            , null, new Rect(j * rectWidth, i * rectHeight, 45, 60));
-                                        drawingContext.Pop();
-                                    }
+                                    drawingContext.PushTransform(new RotateTransform(item.Angle, model.Player.J, model.Player.I));
+                                    drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "archer_enemy.png"), UriKind.RelativeOrAbsolute)))
+                                        , null, new Rect(j * rectWidth, i * rectHeight, 45, 60));
+                                    drawingContext.Pop();
                                 }
                                 break;
+                            case MapItem.enemy2:
+                                
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "attacker_enemy.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 45, 60));
+                                
+                                break;
                             case MapItem.boss:
-                                foreach (var item in model.Enemies)
-                                {
-                                    if (item is BossEnemy)
-                                    {
-                                        drawingContext.PushTransform(new ScaleTransform(item.Scale, 1, item.Enemy_j * rectWidth + 75, item.Enemy_i * rectHeight + 59));
-                                        drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "boss3.png"), UriKind.RelativeOrAbsolute)))
-                                            , null, new Rect(j * rectWidth, i * rectHeight, 150, 119));
-                                        drawingContext.Pop();
-                                    }
-                                }
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "boss3.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 150, 119));
                                 break;
                             case MapItem.ground:
                                 break;
