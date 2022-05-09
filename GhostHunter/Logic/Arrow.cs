@@ -12,6 +12,18 @@ namespace GhostHunter.Logic
         public Point Center { get; set; }
         public Vector Speed { get; set; }
         public double Angle { get; set; }
+        public int Hit { get; set; }
+        public System.Drawing.Rectangle Rectangle
+        {
+            get
+            {
+                return new System.Drawing.Rectangle((int)Center.X, (int)Center.Y, 3, 3);
+            }
+        }
+        public Arrow()
+        {
+            Hit = 50;
+        }
         public bool Move(Size area)
         {
             Point newCenter = new Point(Center.X + (int)Speed.X, Center.Y + (int)Speed.Y);
