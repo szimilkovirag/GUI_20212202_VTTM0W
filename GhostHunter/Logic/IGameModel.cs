@@ -10,5 +10,7 @@ namespace GhostHunter.Logic
         List<Arrow> Enemy_Arrows { get; set; }
         Player Player { get; set; }
         List<Enemy> Enemies { get; set; }
+        string[] Levels { get; set; }
+        string Current { get; set; }
     }
 }
