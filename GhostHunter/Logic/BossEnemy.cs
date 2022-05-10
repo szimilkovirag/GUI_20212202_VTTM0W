@@ -12,6 +12,13 @@ namespace GhostHunter.Logic
         public BossEnemy(int enemy_i, int enemy_j, MapItem[,] GameMatrix) : base(enemy_i, enemy_j, GameMatrix)
         {
         }
+        public override System.Drawing.Rectangle Rectangle
+        {
+            get
+            {
+                return new System.Drawing.Rectangle(Enemy_j, Enemy_i, 2, 10);
+            }
+        }
 
         public override void MoveEnemy(int player_i, int player_j, Size size)
         {

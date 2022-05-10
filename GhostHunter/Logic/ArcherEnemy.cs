@@ -9,10 +9,17 @@ namespace GhostHunter.Logic
 {
     public class ArcherEnemy : Enemy
     {
-        public List<Arrow> Enemy_arrow { get; set; }
+        public static List<Arrow> Enemy_arrow { get; set; }
         private int dx;
         private int dy;
-       
+        public override System.Drawing.Rectangle Rectangle
+        {
+            get
+            {
+                return new System.Drawing.Rectangle(Enemy_j, Enemy_i, 2, 4);
+            }
+        }
+
         public ArcherEnemy(int enemy_i, int enemy_j, MapItem[,] GameMatrix) : base(enemy_i, enemy_j, GameMatrix)
         {
             Enemy_arrow = new List<Arrow>();

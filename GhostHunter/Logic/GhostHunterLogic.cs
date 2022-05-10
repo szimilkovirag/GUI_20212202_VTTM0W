@@ -159,19 +159,19 @@ namespace GhostHunter.Logic
                 switch(Player.Direction)
                 {
                     case Direction.Up:
-                        vector = new Vector(0, -90);
+                        vector = new Vector(0, -20);
                         arrow.Angle = 270;
                         break;
                     case Direction.Down:
-                        vector = new Vector(0, 90);
+                        vector = new Vector(0, 20);
                         arrow.Angle = 90;
                         break;
                     case Direction.Right:
-                        vector = new Vector(90, 0);
+                        vector = new Vector(20, 0);
                         arrow.Angle = 0;
                         break;
                     case Direction.Left:
-                        vector = new Vector(-90, 0);
+                        vector = new Vector(-20, 0);
                         arrow.Angle = 180;
                         break;
                 }
@@ -197,6 +197,9 @@ namespace GhostHunter.Logic
 
         public void MoveItems()
         {
+            rectWidth = size.Width / GameMatrix.GetLength(1);
+            rectHeight = size.Height / GameMatrix.GetLength(0);
+
             for (int i = 0; i < Arrows.Count; i++)
             {
                 bool inside = Arrows[i].Move(size);
@@ -210,54 +213,71 @@ namespace GhostHunter.Logic
                     Enemy_Arrows.RemoveAt(i);
             }
 
-            foreach (var item in Enemies)
+            for (int e = 0; e < Enemies.Count; e++)
             {
-                item.MoveEnemy(Player.I, Player.J, size);
-                if (item is ArcherEnemy)
+                Enemies[e].MoveEnemy(Player.I, Player.J, size);
+
+                Enemy_Arrows = ArcherEnemy.Enemy_arrow;
+
+                System.Drawing.Rectangle enemyrect = Enemies[e].Rectangle;
+
+                if ((Player is AttackerPlayer) && Player.Rectangle.IntersectsWith(enemyrect))
                 {
-                    Enemy_Arrows = (item as ArcherEnemy).Enemy_arrow;
+                    Enemies[e].HP -= 30;
+                    if (Enemies[e].HP <= 0)
+                    {
+                        Enemies.RemoveAt(e);
+                        e--;
+                    }
                 }
-                System.Drawing.Rectangle enemyrect = item.Rectangle;
-                if (item is AttackerEnemy && enemyrect.IntersectsWith(Player.Rectangle))
+                if ((Enemies[e] is AttackerEnemy || Enemies[e] is BossEnemy) && enemyrect.IntersectsWith(Player.Rectangle))
                 {
-                    Player.Shield -= 50;
+                    Player.Shield -= 10;
                     if (Player.Shield <= 0)
                     {
-                        Player.HP -= 50;
+                        Player.HP -= 10;
                         if (Player.HP <= 0)
                         {
                             GameOver?.Invoke(this, null);
                         }
                     }
                 }
-                foreach (var arrow in Arrows)
+                for (int i = 0; i < Arrows.Count; i++)
                 {
-                    System.Drawing.Rectangle arrowRect = arrow.Rectangle;
-                    System.Drawing.Rectangle arrowRectseged = new System.Drawing.Rectangle((int)(arrow.Center.X / rectWidth - 1.5), (int)(arrow.Center.Y / rectHeight + 4), 3, 3);
-
+                    System.Drawing.Rectangle arrowRect = Arrows[i].Rectangle;
+                    System.Drawing.Rectangle arrowRectseged = new System.Drawing.Rectangle((int)(Arrows[i].Center.X / rectWidth - 2), (int)(Arrows[i].Center.Y / rectHeight), 2, 2);
                     if (arrowRectseged.IntersectsWith(enemyrect))
                     {
-                        //Arrows.RemoveAt()
-                        GameOver?.Invoke(this, null);
-                        //item.HP -= 30;
-                        //if (item.HP <= 0)
-                        //{
-                        //    GameOver?.Invoke(this, null);
-                        //}
+                        Arrows.RemoveAt(i);
+                        Enemies[e].HP -= 30;
+                        if (Enemies[e].HP <= 0)
+                        {
+                            Enemies.RemoveAt(e);
+                            e--;
+                        }
                     }
-                    //else if (arrowRect.IntersectsWith(Player.Rectangle))
-                    //{
-                    //    Player.HP -= 50;
-                    //    if (Player.HP <= 0)
-                    //    {
-                    //        GameOver?.Invoke(this, null);
-                    //    }
-                    //}
                 }
-
+                for (int j = 0; j < Enemy_Arrows.Count; j++)
+                {
+                    System.Drawing.Rectangle enemy_arrowRect = Enemy_Arrows[j].Rectangle;
+                    System.Drawing.Rectangle enemy_arrowRectseged = new System.Drawing.Rectangle((int)(Enemy_Arrows[j].Center.X / rectWidth - 1), (int)(Enemy_Arrows[j].Center.Y / rectHeight - 2), 2, 2);
+                    if (enemy_arrowRectseged.IntersectsWith(Player.Rectangle))
+                    {
+                        Enemy_Arrows.RemoveAt(j);
+                        Player.Shield -= 10;
+                        if (Player.Shield <= 0)
+                        {
+                            Player.HP -= 10;
+                            if (Player.HP <= 0)
+                            {
+                                GameOver?.Invoke(this, null);
+                            }
+                        }
+                    }
+                }
             }
         }
-            private MapItem ConvertToEnum(char v)
+        private MapItem ConvertToEnum(char v)
         {
             switch (v)
             {
