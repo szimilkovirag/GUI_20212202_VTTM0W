@@ -17,7 +17,7 @@ namespace GhostHunter.Logic
         {
             get
             {
-                return new System.Drawing.Rectangle((int)Center.X, (int)Center.Y, 3, 3);
+                return new System.Drawing.Rectangle((int)Center.X, (int)Center.Y, 2, 2);
             }
         }
         public Arrow()

@@ -14,13 +14,8 @@ namespace GhostHunter.Logic
         public int Enemy_j;
         public int HP { get; set; }
         public double Scale { get; set; }
-        public virtual System.Drawing.Rectangle Rectangle
-        {
-            get
-            {
-                return new System.Drawing.Rectangle(Enemy_j, Enemy_i, 2, 2);
-            }
-        }
+        public abstract System.Drawing.Rectangle Rectangle { get; }
+        
 
         public Enemy(int enemy_i, int enemy_j, MapItem[,] GameMatrix)
         {

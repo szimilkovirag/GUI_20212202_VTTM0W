@@ -144,9 +144,9 @@ namespace GhostHunter.Renderer
                                 {
                                     if (item is BossEnemy)
                                     {
-                                        drawingContext.PushTransform(new ScaleTransform(item.Scale, 1, item.Enemy_j * rectWidth + 75, item.Enemy_i * rectHeight + 59));
+                                        drawingContext.PushTransform(new ScaleTransform(item.Scale, 1, item.Enemy_j * rectWidth + 75, item.Enemy_i * rectHeight + 60));
                                         drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "boss3.png"), UriKind.RelativeOrAbsolute)))
-                                            , null, new Rect(j * rectWidth, i * rectHeight, 150, 119));
+                                            , null, new Rect(j * rectWidth, i * rectHeight, 150, 120));
                                         drawingContext.Pop();
                                     }
                                 }
