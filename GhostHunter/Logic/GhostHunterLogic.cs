@@ -11,6 +11,8 @@ namespace GhostHunter.Logic
     public enum MapItem
     {
         flower, rocks, mushroom, grass, player1, player2, enemy, enemy2, boss, tree1, tree2, trees, ground, woods, winter, desert, starter,
+        wintertop, winterbush, winteriglo, wintertree, desertlake, desertrock, desertcactus, woodsdeadtree, woodstree, woodsnest, woods1, woods2, woods3,
+        woods4, desert1, desert2, desert3, snow1, snow2, snow3
     }
 
     public enum Direction
@@ -25,8 +27,8 @@ namespace GhostHunter.Logic
         public List<Arrow> Arrows { get; set; }
         public Player Player { get; set; }
         public List<Arrow> Enemy_Arrows { get; set; }
-
-        private string[] levels;
+        public string[] Levels { get; set; }
+        public string Current { get; set; }
 
         private double rectWidth;
         private double rectHeight;
@@ -43,11 +45,12 @@ namespace GhostHunter.Logic
             Enemies = new List<Enemy>();
             Arrows = new List<Arrow>();
             Enemy_Arrows = new List<Arrow>();
-            levels = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(),"Maps"),"*.txt");
-            LoadNext(levels[0]);
+            Levels = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(),"Maps"),"*.txt");
+            LoadNext(Levels[0]);
         }
         public void LoadNext(string path)
         {
+            Current = path;
             string[] lines = File.ReadAllLines(path);
             GameMatrix = new MapItem[int.Parse(lines[1]), int.Parse(lines[0])];
             for (int i = 0; i < GameMatrix.GetLength(0); i++)
@@ -77,7 +80,6 @@ namespace GhostHunter.Logic
                     }
                 }
             }
-            ;
         }
         public void Move(Direction direction)
         {
@@ -128,21 +130,21 @@ namespace GhostHunter.Logic
                 if (Player is ArcherPlayer)
                     GameMatrix[Player.I, Player.J] = MapItem.player2;
             }
-            else if (GameMatrix[new_i, new_j] == MapItem.woods)
+            else if (GameMatrix[new_i, new_j] == MapItem.desert)
             {
-                LoadNext(levels[1]);
+                LoadNext(Levels[1]);
             }
             else if (GameMatrix[new_i, new_j] == MapItem.winter)
             {
-                LoadNext(levels[2]);
+                LoadNext(Levels[2]);
             }
-            else if (GameMatrix[new_i, new_j] == MapItem.desert)
+            else if (GameMatrix[new_i, new_j] == MapItem.woods)
             {
-                LoadNext(levels[3]);
+                LoadNext(Levels[3]);
             }
             else if (GameMatrix[new_i, new_j] == MapItem.starter)
             {
-                LoadNext(levels[0]);
+                LoadNext(Levels[0]);
             }
         }
 
@@ -313,6 +315,46 @@ namespace GhostHunter.Logic
                     return MapItem.enemy2;
                 case 'Z':
                     return MapItem.boss;
+                case 'Ű':
+                    return MapItem.desertrock;
+                case 'C':
+                    return MapItem.desertcactus;
+                case 'L':
+                    return MapItem.desertlake;
+                case 'Ó':
+                    return MapItem.wintertree;
+                case 'Ü':
+                    return MapItem.winterbush;
+                case 'Ö':
+                    return MapItem.winteriglo;
+                case 'I':
+                    return MapItem.wintertop;
+                case 'N':
+                    return MapItem.woodstree;
+                case 'Á':
+                    return MapItem.woodsdeadtree;
+                case 'Í':
+                    return MapItem.woodsnest;
+                case 'Q':
+                    return MapItem.woods1;
+                case 'U':
+                    return MapItem.woods2;
+                case 'Ő':
+                    return MapItem.woods3;
+                case 'O':
+                    return MapItem.woods4;
+                case 'Ú':
+                    return MapItem.desert1;
+                case 'H':
+                    return MapItem.desert2;
+                case 'J':
+                    return MapItem.desert3;
+                case 'V':
+                    return MapItem.snow1;
+                case 'É':
+                    return MapItem.snow2;
+                case '!':
+                    return MapItem.snow3;
                 default:
                     return MapItem.ground;
             }
