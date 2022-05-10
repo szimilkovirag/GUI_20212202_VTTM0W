@@ -17,18 +17,44 @@
     <None Remove="Elements\bullet.PNG" />
     <None Remove="Elements\cat.png" />
     <None Remove="Elements\desert.png" />
+    <None Remove="Elements\DESERT1.png" />
+    <None Remove="Elements\DESERT2.png" />
+    <None Remove="Elements\DESERT3.png" />
     <None Remove="Elements\flower.png" />
     <None Remove="Elements\grass.png" />
     <None Remove="Elements\grass_mushroom.png" />
     <None Remove="Elements\grass_mushroom_tree.png" />
     <None Remove="Elements\grass_rocks.png" />
+    <None Remove="Elements\MAP2_DESERT_CACTUS.png" />
+    <None Remove="Elements\MAP2_DESERT_LAKE.png" />
+    <None Remove="Elements\MAP2_DESERT_ROCK.png" />
+    <None Remove="Elements\MAP3_FOREST_0001_TREE.png" />
+    <None Remove="Elements\MAP3_FOREST_0002_TREE2.png" />
+    <None Remove="Elements\MAP3_FOREST_NEST.png" />
+    <None Remove="Elements\MAP_WINTER-ELEMENT_0000s_0000_Réteg-5.png" />
+    <None Remove="Elements\MAP_WINTER_BUSH.png" />
+    <None Remove="Elements\MAP_WINTER_IGLO.png" />
+    <None Remove="Elements\MAP_WINTER_TOP.png" />
     <None Remove="Elements\rocks_mushrooms.png" />
+    <None Remove="Elements\SNOW1.png" />
+    <None Remove="Elements\SNOW2.png" />
+    <None Remove="Elements\SNOW3.png" />
     <None Remove="Elements\tree1.png" />
     <None Remove="Elements\tree2.png" />
     <None Remove="Elements\trees.png" />
     <None Remove="Elements\winter.png" />
     <None Remove="Elements\woods.png" />
+    <None Remove="Elements\WOODS1.png" />
+    <None Remove="Elements\WOODS2.png" />
+    <None Remove="Elements\WOODS3.png" />
+    <None Remove="Elements\WOODS4.png" />
     <None Remove="Maps\L00.txt" />
+    <None Remove="Maps\L01.txt" />
+    <None Remove="Maps\L02.txt" />
+    <None Remove="Maps\L03.txt" />
+    <None Remove="Maps\MAP3_FOREST_BACKGROUND.png" />
+    <None Remove="Maps\MAP_DESERT_BACKGROUND.png" />
+    <None Remove="Maps\MAP_WINTER_BACKGROUND.png" />
     <None Remove="Maps\starter_background.png" />
     <None Remove="Maps\starter_map.png" />
   </ItemGroup>
@@ -61,6 +87,12 @@
     <Content Include="Elements\desert.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Elements\DESERT2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\DESERT3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Elements\flower.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -76,7 +108,46 @@
     <Content Include="Elements\grass_rocks.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Elements\MAP2_DESERT_CACTUS.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\MAP2_DESERT_LAKE.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\MAP2_DESERT_ROCK.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\MAP3_FOREST_0001_TREE.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\MAP3_FOREST_0002_TREE2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\MAP3_FOREST_NEST.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\MAP_WINTER-ELEMENT_0000s_0000_Réteg-5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\MAP_WINTER_BUSH.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\MAP_WINTER_IGLO.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\MAP_WINTER_TOP.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Elements\rocks_mushrooms.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\SNOW1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\SNOW2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\SNOW3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Elements\tree1.png">
@@ -94,13 +165,49 @@
     <Content Include="Elements\woods.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Elements\WOODS1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\WOODS2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\WOODS3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Elements\WOODS4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Maps\L00.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\L01.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\L02.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\L03.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\MAP3_FOREST_BACKGROUND.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\MAP_DESERT_BACKGROUND.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\MAP_WINTER_BACKGROUND.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Maps\starter_background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Maps\starter_map.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Elements\DESERT1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

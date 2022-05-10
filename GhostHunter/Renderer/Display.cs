@@ -33,6 +33,31 @@ namespace GhostHunter.Renderer
             }
         }
 
+        public Brush FirstBrush
+        {
+            get
+            {
+                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("Maps", "MAP_DESERT_BACKGROUND.png"), UriKind.RelativeOrAbsolute)));
+            }
+        }
+
+        public Brush SecondBrush
+        {
+            get
+            {
+                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("Maps", "MAP_WINTER_BACKGROUND.png"), UriKind.RelativeOrAbsolute)));
+            }
+        }
+
+
+        public Brush ThirdBrush
+        {
+            get
+            {
+                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("Maps", "MAP3_FOREST_BACKGROUND.png"), UriKind.RelativeOrAbsolute)));
+            }
+        }
+
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
@@ -40,8 +65,16 @@ namespace GhostHunter.Renderer
             {
                 double rectWidth = size.Width / model.GameMatrix.GetLength(1);
                 double rectHeight = size.Height / model.GameMatrix.GetLength(0);
+                if (model.Current.Contains("L00"))
+                    drawingContext.DrawRectangle(StarterBrush, null, new Rect(0, 0, size.Width, size.Height));
+                else if (model.Current.Contains("L01"))
+                    drawingContext.DrawRectangle(FirstBrush, null, new Rect(0, 0, size.Width, size.Height));
+                else if (model.Current.Contains("L02"))
+                    drawingContext.DrawRectangle(SecondBrush, null, new Rect(0, 0, size.Width, size.Height));
+                else if (model.Current.Contains("L03"))
+                    drawingContext.DrawRectangle(ThirdBrush, null, new Rect(0, 0, size.Width, size.Height));
 
-                drawingContext.DrawRectangle(StarterBrush, null, new Rect(0, 0, size.Width, size.Height));
+                //drawingContext.DrawRectangle(StarterBrush, null, new Rect(0, 0, size.Width, size.Height));
 
                 foreach (var item in model.Arrows)
                 {
@@ -152,6 +185,89 @@ namespace GhostHunter.Renderer
                                 }
                                 break;
                             case MapItem.ground:
+                                break;
+                            case MapItem.wintertop:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP_WINTER_TOP.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 70));
+                                break;
+                            case MapItem.winterbush:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP_WINTER_BUSH.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 70));
+                                break;
+                            case MapItem.winteriglo:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP_WINTER_IGLO.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 35, 35));
+                                break;
+                            case MapItem.wintertree:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP_WINTER-ELEMENT_0000s_0000_Réteg-5.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 100, 200));
+                                break;
+
+                            case MapItem.desertlake:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP2_DESERT_LAKE.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 35, 35));
+                                break;
+                            case MapItem.desertcactus:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP2_DESERT_CACTUS.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 100, 200));
+                                break;
+                            case MapItem.desertrock:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP2_DESERT_ROCK.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 70));
+                                break;
+
+                            case MapItem.woodsdeadtree:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP3_FOREST_0001_TREE.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 100, 200));
+                                break;
+                            case MapItem.woodstree:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP3_FOREST_0002_TREE2.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 70));
+                                break;
+                            case MapItem.woodsnest:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "MAP3_FOREST_NEST.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 100, 200));
+                                break;
+                            case MapItem.woods1:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "WOODS1.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 70));
+                                break;
+                            case MapItem.woods2:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "WOODS2.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 70));
+                                break;
+                            case MapItem.woods3:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "WOODS3.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 70));
+                                break;
+                            case MapItem.woods4:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "WOODS4.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 70));
+                                break;
+                            case MapItem.snow1:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "SNOW1.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 35, 35));
+                                break;
+                            case MapItem.snow2:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "SNOW2.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 35, 35));
+                                break;
+                            case MapItem.snow3:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "SNOW3.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 60, 70));
+                                break;
+                            case MapItem.desert1:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "DESERT1.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 50, 50));
+                                break;
+                            case MapItem.desert2:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "DESERT2.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 35, 35));
+
+                                break;
+                            case MapItem.desert3:
+                                drawingContext.DrawRectangle(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Elements", "DESERT3.png"), UriKind.RelativeOrAbsolute)))
+                                    , null, new Rect(j * rectWidth, i * rectHeight, 50, 50));
                                 break;
                             default:
                                 break;
