@@ -9,10 +9,6 @@
         Title="Starter" Height="1000" Width="1800" WindowState="Maximized" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" KeyDown="Window_KeyDown">
     <Grid x:Name="grid">
         <renderer:Display x:Name="display"/>
-        <Label Content="HP:" FontSize="30" FontWeight="Bold" Margin="10,898,10,-878"/>
-        <Label Content="Shield:" FontSize="30" FontWeight="Bold" Margin="10,935,130,-795"/>
-        <ProgressBar Maximum="10" Margin="110,908,1390,66" Height="10" Value="10" Width="300" Foreground="Red"/>
-        <ProgressBar Maximum="10" Margin="110,942,1390,32" Height="10" Value="10" Width="300" Foreground="Purple"/>
-        <Rectangle HorizontalAlignment="Left"  Height="110" Margin="0,874,0,0" Stroke="Black" VerticalAlignment="Top" Width="440"/>
+       
     </Grid>
 </Window>
