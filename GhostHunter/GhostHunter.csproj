@@ -48,6 +48,7 @@
     <None Remove="Elements\WOODS2.png" />
     <None Remove="Elements\WOODS3.png" />
     <None Remove="Elements\WOODS4.png" />
+    <None Remove="ghost_hunter.wmv" />
     <None Remove="Maps\L00.txt" />
     <None Remove="Maps\L01.txt" />
     <None Remove="Maps\L02.txt" />
@@ -175,6 +176,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Elements\WOODS4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ghost_hunter.wmv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Maps\L00.txt">
